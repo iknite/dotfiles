@@ -1,0 +1,9 @@
+## ignore everything
+*
+## but this (remember to !bang the files to whitelist it)
+!*git*
+!.bashrc
+!.zshrc
+## or add new files with 'git add -f <file-path>'
+
+

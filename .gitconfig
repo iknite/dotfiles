@@ -1,0 +1,41 @@
+[alias]
+	al = add --all
+	amend = commit --amend
+	cm = commit --verbose -m 
+	co = checkout
+	dc = diff --cached
+	di = diff
+	rb = push --rebase
+	st = status -s
+	lg = log --stat --abbrev-commit
+	l = "!. ~/.githelpers && pretty_git_log"
+
+[apply]
+	whitespace = fix
+
+[color]
+	ui = True
+
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan
+
+[user]
+	email = enrique@iknite.com
+	name = iknite
+
+[diff]
+	tool = vimdiff
+
