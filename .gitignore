@@ -10,6 +10,7 @@
 !.functions
 ## bin folder
 !bin/*
+!.dotfiles.d/0*
 ## or add new files with 'git add -f <file-path>'
 
 

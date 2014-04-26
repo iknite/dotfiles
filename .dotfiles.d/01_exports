@@ -1,12 +1,15 @@
+################################################################################
+#  Environment variables and inclusions.
+################################################################################
+
 # Make vim the default editor
 EDITOR="vim"
 
-# Larger bash history (allow 32³ entries; default is 500)
-HISTSIZE=32768
+HISTSIZE=32768  # Larger bash history (allow 32³ entries; default is 500)
 HISTFILESIZE=$HISTSIZE
 HISTCONTROL=ignoredups
-# Make some commands not show up in history
-HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
+HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"  # no store dull/risky commands.
+HISTFILE=$HOME/.history  # unify bash and zsh history
 
 # Prefer US English and use UTF-8
 LANG="en_US.UTF-8"

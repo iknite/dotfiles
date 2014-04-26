@@ -1,6 +1,6 @@
-[submodule ".zsh_functions/pure"]
-	path = .zsh_functions/pure
-	url = git@github.com:iknite/pure.git
 [submodule ".vim"]
 	path = .vim
 	url = git@github.com:iknite/.vim.git
+[submodule ".zsh/functions/pure"]
+	path = .zsh/functions/pure
+	url = git@github.com:sindresorhus/pure.git

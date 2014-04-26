@@ -1,18 +1,5 @@
-# Set up the prompt
-
-autoload -Uz promptinit
-promptinit
-prompt adam1
-
+# zsh enhancement
 setopt histignorealldups sharehistory
-
-# Use emacs keybindings even if our EDITOR is set to vi
-bindkey -e
-
-# Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
-HISTSIZE=1000
-SAVEHIST=1000
-HISTFILE=~/.zsh_history
 
 # Use modern completion system
 autoload -Uz compinit
@@ -36,17 +23,18 @@ zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
-## update fpath to understand for dotfile repository
-fpath=( "$HOME/.zsh_functions" $fpath )
+# update fpath to understand for dotfile repository
+fpath=( "$HOME/.zsh/functions" $fpath )
 
-## enable the pure zsh conf
-autoload -U promptinit && promptinit
-PURE_CMD_MAX_EXEC_TIME=1
-prompt pure
-
-## modular conf for keep things simple. 
-## extra is for override the repository settings
-for file in ~/.{path,exports,aliases,functions,extra}; do
+# modular conf for keep things simple. This loads all the files sorted,
+# inside .dotfiles.d that follows the ??_* pattern. 
+# examples: 00_paths 30_python_conf ZZ_top
+for file in ~/.dotfiles/??_*; do
 	[ -r "$file" ] && [ -f "$file" ] && source "$file"
 done
 unset file
+
+## enable the pure zsh prompt
+autoload -U promptinit && promptinit
+PURE_CMD_MAX_EXEC_TIME=1
+prompt pure

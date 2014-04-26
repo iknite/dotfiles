@@ -1,11 +1,10 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 
 # If not running interactively, don't do anything
 [[ $- == *i* ]] || return
 
 # Bash enhacements
-for option in autocd cdspell checkwinsize globstar histappend nocaseglob; do
+for option in cdspell checkwinsize extglob globstar histappend nocaseglob; do
 	shopt -s "$option" 2> /dev/null
 done
 unset option
@@ -24,9 +23,13 @@ if ! shopt -oq posix; then
   fi
 fi
 
-## modular conf for keep things simple. 
-## extra is for override the repository settings
-for file in ~/.{paths,exports,aliases,functions,extra,bash_prompt}; do
+# modular conf for keep things simple. This loads all the files sorted,
+# inside .dotfiles.d that follows the ??_* pattern. 
+# examples: 00_paths 30_python_conf ZZ_top
+for file in ~/.dotfiles/??_*; do
 	[ -r "$file" ] && [ -f "$file" ] && source "$file"
 done
 unset file
+
+# show the prompt.
+[ -r .bash_prompt ] && [ -f .bash_prompt ] && source .bash_prompt

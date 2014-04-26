@@ -18,7 +18,6 @@ if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
 fi 
 
 PS1=${PS1_TEMPLATE-"$PRE_PS1$PS_USER$PS_SEPARATOR$PS_HOST $PS_PATH$POST_PS1 $PS_CARET "}
-
 PS2="$PS_CARET "
 
 #vi: set filetype=sh
