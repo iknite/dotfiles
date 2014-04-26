@@ -26,10 +26,10 @@ fi
 # modular conf for keep things simple. This loads all the files sorted,
 # inside .dotfiles.d that follows the ??_* pattern. 
 # examples: 00_paths 30_python_conf ZZ_top
-for file in ~/.dotfiles/??_*; do
+for file in $(find $HOME/.dotfiles.d/ -name "??_*"); do
 	[ -r "$file" ] && [ -f "$file" ] && source "$file"
 done
 unset file
 
-# show the prompt.
+# show the improved prompt.
 [ -r .bash_prompt ] && [ -f .bash_prompt ] && source .bash_prompt

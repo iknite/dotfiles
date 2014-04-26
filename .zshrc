@@ -29,7 +29,7 @@ fpath=( "$HOME/.zsh/functions" $fpath )
 # modular conf for keep things simple. This loads all the files sorted,
 # inside .dotfiles.d that follows the ??_* pattern. 
 # examples: 00_paths 30_python_conf ZZ_top
-for file in ~/.dotfiles/??_*; do
+for file in $HOME/.dotfiles.d/??_*; do
 	[ -r "$file" ] && [ -f "$file" ] && source "$file"
 done
 unset file
