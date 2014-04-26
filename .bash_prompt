@@ -1,0 +1,24 @@
+## usefull strings to compose ps1
+PRE_PS1=$PRE_PS1   # here you can prepend functions 
+PS_USER=${PS_USER-'\u'}
+PS_SEPARATOR=${PS_SEPARATOR-'@'}
+PS_HOST=${PS_HOST-'\h'}
+PS_PATH=${PS_PATH-'\w'}
+POST_PS1=$POST_PS1  # append functions in ps1
+PS_CARET=${PS_CARET-'❯'}
+
+# Assume it's compliant with Ecma-48 (ISO/IEC-6429). (Lack of such support is 
+# extremely rare, and such a case would tend to support setf rather than setaf.)
+if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+	PS_USER='\[\e[38;5;148m\]'$PS_HOST'\[\e[00m\]'
+	PS_SEPARATOR='\[\e[38;5;149m\]'$PS_SEPARATOR'\[\e[00m\]'
+	PS_HOST='\[\e[38;5;150m\]'$PS_HOST'\[\e[00m\]'
+	PS_PATH='\[\e[00;36m\]'$PS_PATH'\[\e[00m\]'
+	PS_CARET='\[\e[38;5;105m\]'$PS_CARET'\[\e[00m\]'
+fi 
+
+PS1=${PS1_TEMPLATE-"$PRE_PS1$PS_USER$PS_SEPARATOR$PS_HOST $PS_PATH$POST_PS1 $PS_CARET "}
+
+PS2="$PS_CARET "
+
+#vi: set filetype=sh

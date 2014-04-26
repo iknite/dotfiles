@@ -1,4 +1,13 @@
+_chr(){
+    # set variable identifying the chroot you work in (used in the prompt below)
+	if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+		debian_chroot=$(cat /etc/debian_chroot)
+	fi
+	echo "${debian_chroot:+($debian_chroot)}"
+}
+
 git_dirty(){
+
 	# stealed from https://github.com/sindresorhus/pure/blob/master/pure.zsh
 	command git rev-parse --is-inside-work-tree &>/dev/null || return
 	command git diff --quiet --ignore-submodules HEAD &>/dev/null
@@ -23,3 +32,7 @@ tre() {
 	# is small enough for one screen.
 	tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX
 }
+
+# bash hooks
+PRE_PS1='$(_chr)'
+POST_PS1='$(git_ps1)$(git_dirty)'
