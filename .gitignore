@@ -4,6 +4,12 @@
 !*git*
 !.bashrc
 !.zshrc
+## modular conf files
+!.exports
+!.aliases
+!.functions
+## bin folder
+!bin/*
 ## or add new files with 'git add -f <file-path>'
 
 
