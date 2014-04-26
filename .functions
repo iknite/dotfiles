@@ -4,8 +4,22 @@ git_dirty(){
 	command git diff --quiet --ignore-submodules HEAD &>/dev/null
 	(($? == 1)) && echo '*'
 }
+
 git_ps1(){
 	# I don't like the standard __git_ps1 putput, this is cleaner
 	local b="$(git symbolic-ref HEAD 2>/dev/null)";
 	[[ -n "$b" ]] && printf " %s" "${b##refs/heads/}";
+}
+
+mkd() {
+	# Create a new directory and enter it
+	mkdir -p "$@" && cd "$@"
+}
+
+tre() {
+	# `tre` is a shorthand for `tree` with hidden files and color, ignoring
+	# the `.git` directory, listing directories first. The output gets piped in
+	# `less` with options to preserve color and line numbers, unless the output 
+	# is small enough for one screen.
+	tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX
 }
