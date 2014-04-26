@@ -27,11 +27,11 @@ if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
 	PS1+='\[\e[38;5;150m\]\h\[\e[00m\]'
 	PS1+=' \[\e[00;36m\]\w\[\e[00m\]'
 	PS1+='$(git_ps1)$(git_dirty)'
-	PS1+='\[\e[38;5;105m\]❯\[\e[00m\] '
+	PS1+=' \[\e[38;5;105m\]❯\[\e[00m\] '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h \W'
 	PS1+='$(git_ps1)$(git_dirty)'
-	PS1+='❯ '
+	PS1+=' ❯ '
 fi 
 
 # enable programmable completion features (you don't need to enable
