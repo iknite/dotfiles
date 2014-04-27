@@ -1,0 +1,33 @@
+# python env manager with alien steroids to work with virtualenvwrapper and
+# virtualenv that instead mess with cd alias, hook nicely in PROMPT_COMMAND
+# and precmd. requires the git_cwd function from:
+# https://github.com/iknite/dotfiles/blob/master/.dotfiles.d/03_functions
+
+
+if [ -f '/usr/local/bin/virtualenvwrapper.sh' ]; then
+	source '/usr/local/bin/virtualenvwrapper.sh'
+fi
+
+python_autoenv_hook(){
+	local cwd=$(git_cwd)
+
+	if [ ! -z $cwd ]; then
+		local env=$((cat "$cwd/.virtualenv" || basename $cwd) 2> /dev/null)
+
+		# if the env is already active don't reload again.
+		if echo $(which python) | egrep -q "(.*/|)$env/bin/python"; then 
+			return; fi
+
+		workon $env 2> /dev/null && return
+		[ -f "$env/bin/activate" ] && source $env/bin/activate && return
+	fi
+	
+	declare -f deactivate > /dev/null && deactivate
+}
+
+[[ -n $BASH  ]] && 
+	PROMPT_COMMAND='python_autoenv_hook; '$PROMPT_COMMAND
+
+[[ -n $ZSH_VERSION ]] && 
+	autoload -Uz add-zsh-hook &&
+	add-zsh-hook precmd python_autoenv_hook
