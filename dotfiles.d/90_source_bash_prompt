@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# show the improved prompt.
+[ -r .bash_prompt ] && [ -f .bash_prompt ] && source .bash_prompt

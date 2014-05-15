@@ -1,16 +1,8 @@
-## ignore everything
-*
-## but this (remember to !bang the files to whitelist it)
-!*git*
-!.bashrc
-!.zshrc
-## modular conf files
-!.exports
-!.aliases
-!.functions
-## bin folder
-!bin/*
-!.dotfiles.d/0*
-## or add new files with 'git add -f <file-path>'
+dotfiles.d/*
+## ignore backups
+dotfiles.back/*
+!dotfiles.back/README.md
+*~
+.*.sw*
 
 

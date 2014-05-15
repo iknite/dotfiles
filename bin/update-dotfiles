@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+#
+# Update dotfiles. 
+# 
+# Use $HOME/dotfiles as base for the files. If isn't present it downloads the 
+# git repository. This allows to be used as scaffolder and updater for the
+# dotfiles. 
+#
+# After it, creates a complete single file for each bashrc and zshrc, 
+# joining in lexicographical order those files in $HOME/dotfiles/dotfiles.d
+# Allowing to reference it for root user. 
+#
+# Then copy all the rest of files inside $HOME/dotfiles.
+
+[[ ! -d $HOME/dotfiles ]] &&
+	git clone git@github.qdqmedia.com:iknite/dotfiles.git $HOME/dotfiles &&
+	echo 'cloned repository'
+
+# bin is not remaped to .bin
+[[ ! -d $HOME/bin ]] && mkdir -p $HOME/bin && echo 'created ~/bin folder'
+
+for binary in $(ls $HOME/dotfiles/bin); do
+	[[ -f $HOME/bin/$binary ]] && 
+		mv -b $HOME/bin/$binary $HOME/dotfiles/dotfiles.back/
+	cp -r $HOME/dotfiles/bin/$binary $HOME/bin/$binary &&
+		echo "Added $binary to ~/bin/"
+done 
+unset binary
+
+# Copy all the dotfiles
+for file in $(ls $HOME/dotfiles | egrep -v '^README|^bin$|^dotfiles'); do
+	[[ -f $HOME/.$file  ]] && 
+		mv -b $HOME/.$file $HOME/dotfiles/dotfiles.back/
+	cp -r $HOME/dotfiles/$file $HOME/.$file && 
+		echo "Copied $file to ~/.$file"
+done
+unset file
+
+
+# modular conf for keep things simple. This loads all the files sorted,
+# inside dotfiles.d that follows the ??_* pattern. 
+# examples: 00_paths 30_python_conf ZZ_top
+for file in $(LANG=C.UTF-8 ls $HOME/dotfiles/dotfiles.d/ | egrep "^.._.+"); do
+	file=$HOME/dotfiles/dotfiles.d/$file
+	if [ -r "$file" ] && [ -f "$file" ]; then
+		[[ ! "$file" =~ 'zsh' ]] &&
+			echo -e "\n\n########### sourced from: $file \n" >> $HOME/.bashrc &&
+			cat $file >> $HOME/.bashrc &&
+			echo "Sourced $file to ~/.bashrc"
+		[[ ! "$file" =~ 'bash' ]] &&
+			echo -e "\n\n########### sourced from: $file \n" >> $HOME/.zshrc &&
+			cat $file >> $HOME/.zshrc &&
+			echo "Sourced $file to ~/.zshrc"
+	fi
+done
+unset file
+
+

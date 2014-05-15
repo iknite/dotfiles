@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 
 # If not running interactively, don't do anything
@@ -23,13 +24,3 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# modular conf for keep things simple. This loads all the files sorted,
-# inside .dotfiles.d that follows the ??_* pattern. 
-# examples: 00_paths 30_python_conf ZZ_top
-for file in $(find $HOME/.dotfiles.d/ -name "??_*"); do
-	[ -r "$file" ] && [ -f "$file" ] && source "$file"
-done
-unset file
-
-# show the improved prompt.
-[ -r .bash_prompt ] && [ -f .bash_prompt ] && source .bash_prompt
