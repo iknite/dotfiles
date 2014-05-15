@@ -31,7 +31,7 @@ unset binary
 for file in $(ls $HOME/dotfiles | egrep -v '^README|^bin$|^dotfiles'); do
 	[[ -f $HOME/.$file  ]] && 
 		mv -b $HOME/.$file $HOME/dotfiles/dotfiles.back/
-	cp -r $HOME/dotfiles/$file $HOME/.$file && 
+	cp -R $HOME/dotfiles/$file $HOME/.$file && 
 		echo "Copied $file to ~/.$file"
 done
 unset file
