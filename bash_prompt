@@ -11,12 +11,20 @@ PS_CARET=${PS_CARET-'❯'}  # thanks @sindresorhus to find it!
 # Assume it's compliant with Ecma-48 (ISO/IEC-6429). (Lack of such support is 
 # extremely rare, and such a case would tend to support setf rather than setaf.)
 if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	PS_USER='\[\e[38;5;148m\]'$PS_USER'\[\e[00m\]'
-	PS_SEPARATOR='\[\e[38;5;149m\]'$PS_SEPARATOR'\[\e[00m\]'
-	PS_HOST='\[\e[38;5;150m\]'$PS_HOST'\[\e[00m\]'
+	[[ $EUID -ne 0 ]] && cu='150m' || cu='202m'
+	PS_USER='\[\e[38;5;'$cu'\]'$PS_USER'\[\e[00m\]'	
+	PS_SEPARATOR='\[\e[38;5;101m\]'$PS_SEPARATOR'\[\e[00m\]'
+	PS_HOST='\[\e[38;5;148m\]'$PS_HOST'\[\e[00m\]'
 	PS_PATH='\[\e[00;36m\]'$PS_PATH'\[\e[00m\]'
 	PS_CARET='\[\e[38;5;105m\]'$PS_CARET'\[\e[00m\]'
 fi 
+
+# Hide the default user (who host the files)
+dir="$(cd "$(dirname -- "$0")"  && pwd)" 
+#[[ "$(echo "$dir" | grep -o $USER)"  != "" ]] && PS_USER=''
+
+# disable machine information unless you're sshing it.
+[[ -z $SSH_CONNECTION ]] && PS_SEPARATOR='' && PS_HOST=''
 
 PS1=${PS1_TEMPLATE-"$PRE_PS1$PS_USER$PS_SEPARATOR$PS_HOST $PS_PATH$POST_PS1 $PS_CARET "}
 PS2="$PS_CARET "
