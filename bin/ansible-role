@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+cookiecutter https://github.com/iknite/cookiecutter-ansible-role.git
+
