@@ -4,7 +4,7 @@
 ################################################################################
 
 # Make vim the default editor
-EDITOR="vim"
+export EDITOR="vim"
 
 HISTSIZE=32768  # Larger bash history (allow 32³ entries; default is 500)
 HISTFILESIZE=$HISTSIZE
