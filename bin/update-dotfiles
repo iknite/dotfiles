@@ -13,7 +13,7 @@
 # Then copy all the rest of files inside $HOME/dotfiles.
 
 [[ ! -d $HOME/dotfiles ]] &&
-	git clone git@github.qdqmedia.com:iknite/dotfiles.git $HOME/dotfiles &&
+	git clone git@github.com:iknite/dotfiles $HOME/dotfiles &&
 	echo 'cloned repository'
 
 # create bin folder if didn't exists.
