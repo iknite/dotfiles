@@ -1,5 +1,3 @@
 #!/usr/bin/env bash
 #enable user relative scripts
 PATH="$HOME/bin:$HOME/.node_modules/bin:$PATH"
-
-
