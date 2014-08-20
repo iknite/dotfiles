@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-#ruby env
-PATH="$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH"
-export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
