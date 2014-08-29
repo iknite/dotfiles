@@ -1,2 +1,3 @@
 #!usr/bin/env bash
 export VAGRANT_DEFAULT_PROVIDER='kvm'
+export VAGRANT_HOME='/data/vagrant'
