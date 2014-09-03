@@ -1,7 +1,0 @@
-# Load pyenv automatically by adding
-# the following to ~/.bash_profile:
-
-export PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-
