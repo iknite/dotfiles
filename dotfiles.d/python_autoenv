@@ -1,7 +1,7 @@
 # Python Autoenv 
 #
 # Env manager with alien steroids to work with *git project ONLY* and load
-# virtualenvwrapper or plain virtualenv automagically but don't mess with 
+# venv folder or virtualenvwrapper automagically but don't mess with 
 # cd redefinitions. 
 #
 # Hooks nicely in PROMPT_COMMAND in bash or precmd in zsh. 
@@ -31,6 +31,8 @@ fi
 
 python_autoenv(){
     local cwd=$(git_cwd)
+
+    [ -d "$cwd/venv/bin" ] && source $cwd/venv/bin/activate && return
 
     if [ ! -z $cwd ]; then
         local env=$((cat "$cwd/.virtualenv" || basename $cwd) 2> /dev/null)
