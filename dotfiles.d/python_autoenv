@@ -32,7 +32,7 @@ fi
 python_autoenv(){
     local cwd=$(git_cwd)
 
-    [ -d "$cwd/venv/bin" ] && source $cwd/venv/bin/activate && return
+    [ -d "$cwd/.venv/bin" ] && source $cwd/.venv/bin/activate && return
 
     if [ ! -z $cwd ]; then
         local env=$((cat "$cwd/.virtualenv" || basename $cwd) 2> /dev/null)
