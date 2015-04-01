@@ -2,13 +2,13 @@
 #
 # Update dotfiles. 
 # 
-# Use $HOME/dotfiles as base for the files. If isn't present it downloads the 
-# git repository. This allows to be used as scaffolder and updater for the
+# Use $HOME/dotfiles as base for the files. If isn't present it downloads the
+# git repository. So this can be used as scaffolder and updater for the
 # dotfiles. 
 #
-# After it, creates a complete single file for each bashrc and zshrc, 
-# joining in lexicographical order those files in $HOME/dotfiles/dotfiles.d
-# Allowing to reference it for root user. 
+# After it, concats a complete single file in lexicographical order for those 
+# files in $HOME/dotfiles/dotfiles.d. This alllows to be used for other 
+# users (ex. root)
 #
 # Then copy all the rest of files inside $HOME/dotfiles.
 
@@ -57,14 +57,9 @@ unset file
 for file in $(LANG=C.UTF-8 ls $HOME/dotfiles/dotfiles.d/ | egrep "^.._.+"); do
 	file=$HOME/dotfiles/dotfiles.d/$file
 	if [ -r "$file" ] && [ -f "$file" ]; then
-		[[ ! "$file" =~ 'zsh' ]] &&
-			echo -e "\n\n########### sourced from: $file \n" >> $HOME/.bashrc &&
-			cat $file >> $HOME/.bashrc &&
-			echo "Sourced $file to ~/.bashrc"
-		[[ ! "$file" =~ 'bash' ]] &&
-			echo -e "\n\n########### sourced from: $file \n" >> $HOME/.zshrc &&
-			cat $file >> $HOME/.zshrc &&
-			echo "Sourced $file to ~/.zshrc"
+        echo -e "\n\n########### sourced from: $file \n" >> $HOME/.bashrc &&
+        cat $file >> $HOME/.bashrc &&
+        echo "Sourced $file to ~/.bashrc"
 	fi
 done
 unset file
