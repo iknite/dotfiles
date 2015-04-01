@@ -1,13 +1,15 @@
 URxvt*background: #2B2B2B
 URxvt*foreground: #DEDEDE
-URxvt*font: xft:Monospace:pixelsize=14
-URxvt*boldfont: xft:Monospace:pixelsize=14
+URxvt*font: xft:Monospace:pixelsize=23:antialias=true:hinting=true:medium
+URxvt*boldfont: xft:Monospace:pixelsize=23:antialias=true:hinting=true:bold
+URxvt*font: xft:Monospace:pixelsize=23:antialias=true:hinting=true,xft:Source\ Code\ Pro\ Medium:pixelsize=23:antialias=true:hinting=true
 URxvt*saveLines: 12000
 URxvt*scrollBar: false
 URxvt*scrollstyle: rxvt
-URxvt*letterSpace: -2
+URxvt*letterSpace: -1
 URxvt.urlLauncher     : firefox
 URxvt.matcher.button  : 1
+
 ! black
 URxvt*color0  : #2E3436
 URxvt*color8  : #555753
@@ -33,7 +35,7 @@ URxvt*color14 : #34E2E2
 URxvt*color7  : #D3D7CF
 URxvt*color15 : #EEEEEC
 
-Xft.dpi: 96
+Xft.dpi: 192
 Xft.antialias: 1
 Xft.rgba: rgb
 Xft.hinting: 1
