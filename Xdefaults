@@ -9,6 +9,8 @@ URxvt*scrollstyle: rxvt
 URxvt*letterSpace: -1
 URxvt.urlLauncher     : firefox
 URxvt.matcher.button  : 1
+URxvt*transparent: true
+URxvt*shading: 10
 
 ! black
 URxvt*color0  : #2E3436
