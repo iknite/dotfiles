@@ -41,6 +41,11 @@ tre() {
 	tree -aC -I '.git|node_modules|bower_components|venv|__pycache__' --dirsfirst "$@" | less -FRNX
 }
 
+path() {
+    local IFS=:
+    printf "%s\n" $PATH
+}
+
 # bash hooks
 PRE_PS1='$(_chr)'
 POST_PS1='$(git_ps1)$(git_dirty)'
