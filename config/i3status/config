@@ -1,0 +1,67 @@
+# vi : set filetype=config :
+general {
+    interval = 1
+}
+
+order += "battery 0"
+battery 0 {
+        format = " %percentage%status "
+        format_down = " B: down "
+        path = "/sys/class/power_supply/BAT1/uevent"
+        low_threshold = 10
+}
+
+order += "cpu_temperature 0"
+cpu_temperature 0 {
+    format = " %degrees° "
+}
+
+order += "load"
+load {
+    format = " %5min "
+}
+
+order += "disk /"
+disk "/" {
+        format = "%free "
+}
+
+order += 'volume master'
+volume master {
+    format = ' %volume '
+    format_muted = ' _ '
+    device = 'default'
+    mixer = 'Master'
+
+}
+
+order += "wireless wlp6s0"
+wireless wlp6s0 {
+        format_up = " %quality %essid "
+        format_down = " ✈ "
+}
+
+# order += "run_watch DHCP"
+# run_watch DHCP {
+#         format = " DHCP "
+#         pidfile = "/var/run/dhclient*.pid"
+# }
+
+# order += "run_watch VPNC"
+# run_watch VPNC {
+#         # file containing the PID of a vpnc process
+#         pidfile = "/var/run/vpnc/pid"
+# }
+#
+# order += "path_exists VPN"
+# path_exists VPN {
+#         # path exists when a VPN tunnel launched by nmcli/nm-applet is active
+#         path = "/proc/sys/net/ipv4/conf/tun0"
+# }
+
+order += "tztime madrid"
+tztime madrid{
+    format = ' %Y.%m.%d %g.%w %H.%M.%S '
+    timezone = 'Europe/Madrid'
+}
+
