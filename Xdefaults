@@ -1,8 +1,8 @@
 URxvt*background: #2B2B2B
 URxvt*foreground: #DEDEDE
-URxvt*font: xft:Monospace:pixelsize=23:antialias=true:hinting=true:medium
-URxvt*boldfont: xft:Monospace:pixelsize=23:antialias=true:hinting=true:bold
-URxvt*font: xft:Monospace:pixelsize=23:antialias=true:hinting=true,xft:Source\ Code\ Pro\ Medium:pixelsize=23:antialias=true:hinting=true
+URxvt*font: xft:Monospace:pixelsize=17:antialias=true:hinting=true:medium
+URxvt*boldfont: xft:Monospace:pixelsize=17:antialias=true:hinting=true:bold
+URxvt*font: xft:Monospace:pixelsize=17:antialias=true:hinting=true,xft:Source\ Code\ Pro\ Medium:pixelsize=17:antialias=true:hinting=true
 URxvt*saveLines: 12000
 URxvt*scrollBar: false
 URxvt*scrollstyle: rxvt
@@ -37,7 +37,7 @@ URxvt*color14 : #34E2E2
 URxvt*color7  : #D3D7CF
 URxvt*color15 : #EEEEEC
 
-Xft.dpi: 192
+Xft.dpi: 96
 Xft.antialias: 1
 Xft.rgba: rgb
 Xft.hinting: 1
