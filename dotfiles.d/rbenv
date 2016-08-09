@@ -1,0 +1,15 @@
+eval "$(rbenv init -)"
+
+gempath() {
+	LOCALPATH=''
+    local OLDIFS=$IFS
+	local IFS=:;
+	for path in $(gem env gempath); do
+        IFS=$OLDIFS
+		LOCALPATH+="$path/bin:"
+	done
+	echo ${LOCALPATH%:}
+}
+
+export PATH="${PATH}:$(gempath)"
+
