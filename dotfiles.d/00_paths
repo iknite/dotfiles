@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 #enable user relative scripts
-export PATH="$PATH:$HOME/bin:$HOME/.node_modules/bin"
+PATH="${PATH#:}"
+PATH="${PATH%:}"
+PATH="$PATH:$HOME/bin:$HOME/.node_modules/bin"
