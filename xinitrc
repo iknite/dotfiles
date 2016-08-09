@@ -10,4 +10,5 @@ if [ -s ~/.Xmodmap ]; then
     xmodmap ~/.Xmodmap
 fi
 
+eval $(ssh-agent)
 exec i3
