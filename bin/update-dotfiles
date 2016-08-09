@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 #
-# Update dotfiles. 
-# 
+# Update dotfiles.
+#
 # Use $HOME/dotfiles as base for the files. If isn't present it downloads the
 # git repository. So this can be used as scaffolder and updater for the
-# dotfiles. 
+# dotfiles.
 #
-# After it, concats a complete single file in lexicographical order for those 
-# files in $HOME/dotfiles/dotfiles.d. This alllows to be used for other 
+# After it, concats a complete single file in lexicographical order for those
+# files in $HOME/dotfiles/dotfiles.d. This alllows to be used for other
 # users (ex. root)
 #
 # Then copy all the rest of files inside $HOME/dotfiles.
@@ -20,12 +20,12 @@
 [[ ! -d $HOME/bin ]] && mkdir -p $HOME/bin && echo 'created ~/bin folder'
 
 for binary in $(ls $HOME/dotfiles/bin); do
-    # check for conflicts by name, then by md5, if differ make a backup. 
+    # check for conflicts by name, then by md5, if differ make a backup.
     # skip step for the same files.
 	if [[ -f $HOME/bin/$binary ]]; then
         #check content
-        original_md5="$(md5sum $HOME/bin/$binary | awk '{print $1}')" 
-        new_md5="$(md5sum $HOME/dotfiles/bin/$binary | awk '{print $1}')" 
+        original_md5="$(md5sum $HOME/bin/$binary | awk '{print $1}')"
+        new_md5="$(md5sum $HOME/dotfiles/bin/$binary | awk '{print $1}')"
         [[ $original_md5 == $new_md5 ]] && continue
 
         # if differs
@@ -33,26 +33,26 @@ for binary in $(ls $HOME/dotfiles/bin); do
     fi
 	cp -r $HOME/dotfiles/bin/$binary $HOME/bin/$binary &&
 		echo "Copied $binary to ~/bin/"
-done 
+done
 unset binary
 
 # Copy all the dotfiles
 for file in $(ls $HOME/dotfiles | egrep -v '^README|^bin$|^dotfiles'); do
-	[[ -f $HOME/.$file  ]] && 
+	[[ -f $HOME/.$file  ]] &&
         #check content
-        original_md5="$(md5sum $HOME/.$file | awk '{print $1}')" 
-        new_md5="$(md5sum $HOME/dotfiles/$file | awk '{print $1}')" 
+        original_md5="$(md5sum $HOME/.$file | awk '{print $1}')"
+        new_md5="$(md5sum $HOME/dotfiles/$file | awk '{print $1}')"
         [[ $original_md5 == $new_md5 ]] && continue
 
 		mv -b $HOME/.$file $HOME/dotfiles/dotfiles.back/
-	cp -R $HOME/dotfiles/$file $HOME/.$file && 
+	cp -R $HOME/dotfiles/$file $HOME/.$file &&
 		echo "Copied $file to ~/.$file"
 done
 unset file
 
 
 # modular conf for keep things simple. This loads all the files sorted,
-# inside dotfiles.d that follows the ??_* pattern. 
+# inside dotfiles.d that follows the ??_* pattern.
 # examples: 00_paths 30_python_conf ZZ_top
 for file in $(LANG=C.UTF-8 ls $HOME/dotfiles/dotfiles.d/ | egrep "^.._.+"); do
 	file=$HOME/dotfiles/dotfiles.d/$file
@@ -63,5 +63,3 @@ for file in $(LANG=C.UTF-8 ls $HOME/dotfiles/dotfiles.d/ | egrep "^.._.+"); do
 	fi
 done
 unset file
-
-
