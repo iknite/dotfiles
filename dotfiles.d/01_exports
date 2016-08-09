@@ -30,4 +30,3 @@ GREP_OPTIONS="--color=auto"
 
 # Link Homebrew casks in `/Applications` rather than `~/Applications`
 HOMEBREW_CASK_OPTS="--appdir=/Applications"
-
