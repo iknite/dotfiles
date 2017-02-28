@@ -20,17 +20,6 @@
 [[ ! -d $HOME/bin ]] && mkdir -p $HOME/bin && echo 'created ~/bin folder'
 
 for binary in $(ls $HOME/dotfiles/bin); do
-    # check for conflicts by name, then by md5, if differ make a backup.
-    # skip step for the same files.
-	if [[ -f $HOME/bin/$binary ]]; then
-        #check content
-        original_md5="$(md5sum $HOME/bin/$binary | awk '{print $1}')"
-        new_md5="$(md5sum $HOME/dotfiles/bin/$binary | awk '{print $1}')"
-        [[ $original_md5 == $new_md5 ]] && continue
-
-        # if differs
-		mv -b $HOME/bin/$binary $HOME/dotfiles/dotfiles.back/
-    fi
 	cp -r $HOME/dotfiles/bin/$binary $HOME/bin/$binary &&
 		echo "Copied $binary to ~/bin/"
 done
@@ -38,13 +27,6 @@ unset binary
 
 # Copy all the dotfiles
 for file in $(ls $HOME/dotfiles | egrep -v '^README|^bin$|^dotfiles'); do
-	[[ -f $HOME/.$file  ]] &&
-        #check content
-        original_md5="$(md5sum $HOME/.$file | awk '{print $1}')"
-        new_md5="$(md5sum $HOME/dotfiles/$file | awk '{print $1}')"
-        [[ $original_md5 == $new_md5 ]] && continue
-
-		mv -b $HOME/.$file $HOME/dotfiles/dotfiles.back/
 	cp -R $HOME/dotfiles/$file $HOME/.$file &&
 		echo "Copied $file to ~/.$file"
 done
