@@ -1,0 +1,13 @@
+docker
+google-chrome
+iterm2
+java
+meld
+onyx
+postman
+rambox
+spectacle
+vagrant
+virtualbox
+webstorm
+zoom
