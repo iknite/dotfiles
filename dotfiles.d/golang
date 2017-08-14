@@ -1,2 +1,6 @@
-export PATH=$PATH:/usr/local/go/bin:~/work/go/bin
-export GOPATH=$GOPATH:~/work/go
+mkdir -p ~/.gopath
+ln -s ~/.gopath/src ~/work
+
+export GOPATH=~/.gopath
+export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+
