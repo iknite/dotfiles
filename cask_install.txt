@@ -5,7 +5,6 @@ java
 meld
 onyx
 postman
-rambox
 spectacle
 vagrant
 virtualbox

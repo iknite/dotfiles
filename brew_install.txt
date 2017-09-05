@@ -3,8 +3,7 @@ awscli
 bash
 bfg
 ctags
-docker
-docker-machine
+git
 git-extras
 hub
 jq
@@ -17,9 +16,11 @@ putty
 pwgen
 python
 ruby
+svn
 terragrunt
 the_silver_searcher
 tmux
 tree
 vagrant-completion
+vim
 wget
