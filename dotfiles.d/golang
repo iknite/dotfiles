@@ -1,6 +1,7 @@
-mkdir -p ~/.gopath
-ln -s ~/.gopath/src ~/work
+# mkdir -p ~/.gopath
+# ln -s ~/.gopath/src ~/work 
 
+export GO111MODULE=on
 export GOPATH=~/.gopath
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 
