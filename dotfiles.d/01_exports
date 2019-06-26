@@ -25,8 +25,5 @@ export LESS_TERMCAP_md="$ORANGE"
 export MANPAGER="less -FXRS"
 export PAGER="less -FXRS"
 
-# Always enable colored `grep` output
-GREP_OPTIONS="--color=auto"
-
 # Link Homebrew casks in `/Applications` rather than `~/Applications`
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
