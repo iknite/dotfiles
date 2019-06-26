@@ -15,10 +15,10 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # some more ls aliases
+alias ls='ls --color=auto -h --group-directories-first'
 alias ll='ls -alhF'
 alias la='ls -A'
 alias l='ls -CF'
 
-alias dist-upgrade="sudo apt-get update && sudo apt-get dist-upgrade --no-install-recommends"
 alias tmux="tmux -2"
 alias gvim="vim"  # vim-athena gui is hideous
