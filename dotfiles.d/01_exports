@@ -30,3 +30,6 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 # direnv
 eval "$(direnv hook bash)"
+
+# fuzzy finder shortcut installation
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
