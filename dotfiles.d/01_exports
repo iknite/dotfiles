@@ -27,6 +27,3 @@ export PAGER="less -FXRS"
 
 # Link Homebrew casks in `/Applications` rather than `~/Applications`
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
-
-# fuzzy finder shortcut installation
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
