@@ -1,0 +1,2 @@
+# direnv install script
+eval "$(direnv hook bash)"
