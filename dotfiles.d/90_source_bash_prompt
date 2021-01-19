@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 # show the improved prompt.
-[ -r .bash_prompt ] && [ -f .bash_prompt ] && source .bash_prompt
+[ -r $HOME/.bash_prompt ] && [ -f $HOME/.bash_prompt ] && source $HOME/.bash_prompt
