@@ -1,0 +1,7 @@
+# asdf-vm
+
+# aur source
+[ -f /opt/asdf-vm/asdf.sh ] && source /opt/asdf-vm/asdf.sh
+
+# manual install
+[ -f $HOME/asdf/asdf.bash ] && source $HOME/asdf/asdf.bash
