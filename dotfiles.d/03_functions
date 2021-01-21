@@ -41,6 +41,24 @@ tre() {
 	tree -aC -I '.*|node_modules|bower_components|venv|__pycache__' --dirsfirst "$@" | less -FRNX
 }
 
+bulk-dir() {
+
+    for  d in */; do
+        ( 
+        echo ">> $d";
+        cd $d;
+        $@
+        )
+    done
+}
+
+normal-eof() {
+    for f in "$@"; do
+        # this trick will add \n if missing at EOF and remove multiple empty lines \n$\n$
+        echo "$(cat $f)" > $f
+    done
+}
+
 path() {
     local IFS=:
     printf "%s\n" $PATH
