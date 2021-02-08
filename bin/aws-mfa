@@ -1,0 +1,144 @@
+#!/bin/bash
+
+set -eu
+
+AWS_MFA_ROOT_PROFILE=${AWS_MFA_ROOT_PROFILE:-default}
+
+AWS_MFA_SESSION_DURATION="${AWS_MFA_SESSION_DURATION:-129600}"
+
+expiration=$(
+    perl -n -e '/mfa_expiration: (.*?)$/ && print $1' ~/.aws/credentials
+)
+
+execute=
+
+usage() {
+	cat <<-USAGE
+		Command to retrieve a STS session for AWS services. It will check expiration
+		time to avoid unnecesary STS sessions. Aditonally it can be used as a "aws"
+		command wrapper to forget about MFAs until neccesary.  It will use the first
+		occurrence of "aws iam list-mfa-devices" 
+
+		usage: ${0##*/} [options] [arguments]
+
+		  options:
+		-h,--help        Show this help
+		-c,--clean       Clean previous MFA session and exit
+		-p,--profile     profile to use to generate the mfa session (env: AWS_MFA_ROOT_PROFILE)
+		-d,--duration    duration of the MFA session (env: AWS_MFA_SESSION_DURATION)
+		-e,--execute     Act as 'aws' (ie: aws-mfa -e s3 ls) Must be the last option
+
+		  arguments (if --execute is enabled):
+		- All arguments will be blindly passed to aws so you can alias your aws
+		with this script
+
+		"""
+		alias aws="${0##*/} -e"
+		aws s3 ls 
+		"""
+
+		  environment variables
+		- command line arguments takes precedence
+		- default values:
+		    AWS_MFA_ROOT_PROFILE=default
+		    AWS_MFA_SESSION_DURATION=129600
+		USAGE
+
+	return 0
+}
+
+lifecycle() {
+
+    [ "$(check)" == "0" ] && update-mfa
+
+    [ "${execute}" != "" ] && aws $execute
+
+}
+
+_date() {
+    return $(date -d $(date '+%Y-%m-%dT%H:%M:%S%z' -d ${1}) +%s)
+}
+
+check() {
+
+    status=0
+
+    command  -v jq >/dev/null || ( echo >&2 "[ERROR] jq is required"; status=2 )
+
+    command  -v perl >/dev/null || ( echo >&2 "[ERROR] perl is required"; status=2 )
+
+    [ "${expiration}" != "" ] && (
+        [ "$(_date ${expiration})" -gt "$(date +%s)" ] && status=2
+    )
+
+    return ${status}
+
+}
+
+delete_mfa_block_if_exists() {
+    perl -0777 -pi -e 's/\[mfa\].*?\n(\n|$)//s' ~/.aws/credentials
+}
+
+update-mfa() {
+
+    local serial_number=$(
+        aws iam list-mfa-devices \
+            --profile ${AWS_MFA_ROOT_PROFILE} \
+        | jq -r .MFADevices[].SerialNumber
+    )
+
+    read -p "AWS_MFA ❯ " token_code
+
+    local sts_output=$(
+        aws sts get-session-token \
+            --duration-seconds ${AWS_MFA_SESSION_DURATION} \
+            --serial-number ${serial_number} \
+            --token-code ${token_code} \
+            --profile ${AWS_MFA_ROOT_PROFILE}
+    )
+
+    [ $(cat ~/.aws/credentials | grep -c "\[mfa\]") -gt 0 ] && delete_mfa_block_if_exists
+
+	cat <<-EOF >> ~/.aws/credentials
+	[mfa]
+	aws_access_key_id=$(echo ${sts_output} | jq -r .Credentials.AccessKeyId)
+	aws_secret_access_key=$(echo ${sts_output} | jq -r .Credentials.SecretAccessKey)
+	aws_session_token="$(echo ${sts_output} | jq -r .Credentials.SessionToken)"
+	# mfa_expiration: $(echo ${sts_output} | jq -r .Credentials.Expiration)
+	EOF
+
+}
+
+
+# parse the arguments of the script
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -h|--help)
+            usage
+            exit 3
+            ;;
+
+        -c|--clean)
+            delete_mfa_block_if_exists && shift && exit 1
+            ;;
+
+        -p|--profile)
+            [ "${2##-*}" != "" ] && AWS_MFA_ROOT_PROFILE="$2" && shift
+            continue
+            ;;
+
+        -d|--duration)
+            [ "${2##-*}" != "" ] && AWS_MFA_SESSION_DURATION="$2" && shift
+            continue
+            ;;
+
+        -e|--execute)
+            shift && execute="$@" && break 2
+            ;;
+    esac
+    shift
+done
+
+
+# run the script
+lifecycle
