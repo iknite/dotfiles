@@ -42,6 +42,7 @@ usage() {
 		- default values:
 		    AWS_MFA_ROOT_PROFILE=default
 		    AWS_MFA_SESSION_DURATION=129600
+
 		USAGE
 
 	return 0
@@ -49,7 +50,7 @@ usage() {
 
 lifecycle() {
 
-    [ "$(check)" == "0" ] && update-mfa
+    check; [ "$?" == "0" ] && update-mfa
 
     [ "${execute}" != "" ] && aws $execute
 
@@ -72,7 +73,6 @@ check() {
     )
 
     return ${status}
-
 }
 
 delete_mfa_block_if_exists() {
@@ -86,6 +86,8 @@ update-mfa() {
             --profile ${AWS_MFA_ROOT_PROFILE} \
         | jq -r .MFADevices[].SerialNumber
     )
+
+    [ "${serial_number}" == "" ] && exit 2
 
     read -p "AWS_MFA ❯ " token_code
 
