@@ -69,7 +69,7 @@ check() {
     command  -v perl >/dev/null || ( echo >&2 "[ERROR] perl is required"; status=2 )
 
     [ "${expiration}" != "" ] && (
-        [ "$(_date ${expiration})" -gt "$(date +%s)" ] && status=2
+        [[ "$(_date ${expiration})" -gt "$(date +%s)" ]] && status=2
     )
 
     return ${status}

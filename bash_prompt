@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 ## usefull strings to compose ps1
-PRE_PS1=$PRE_PS1   # here you can prepend functions 
+PRE_PS1=$PRE_PS1   # here you can prepend functions
 PS_USER=${PS_USER-'\u'}
 PS_SEPARATOR=${PS_SEPARATOR-'@'}
 PS_HOST=${PS_HOST-'\h'}
@@ -26,5 +26,5 @@ dir="$(cd "$(dirname -- "$0")"  && pwd)"
 # disable machine information unless you're sshing it.
 [[ -z $SSH_CONNECTION ]] && PS_SEPARATOR='' && PS_HOST=''
 
-PS1=${PS1_TEMPLATE-"$PRE_PS1$PS_USER$PS_SEPARATOR$PS_HOST $PS_PATH$POST_PS1 $PS_CARET "}
+PS1=${PS1_TEMPLATE-"\n$PRE_PS1$PS_USER$PS_SEPARATOR$PS_HOST $PS_PATH$POST_PS1\n$PS_CARET "}
 PS2="$PS_CARET "

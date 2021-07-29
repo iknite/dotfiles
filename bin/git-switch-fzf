@@ -1,0 +1,4 @@
+#!/bin/bash
+
+git switch "$(git branch | fzf | tr -d ‘[:space:]’)"
+
