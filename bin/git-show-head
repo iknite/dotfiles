@@ -1,0 +1,5 @@
+#!/bin/bash
+
+git pretty-log -1
+git show -p --pretty="tformat:"
+

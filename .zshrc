@@ -1,4 +1,4 @@
-export PATH=/opt/homebrew/bin:$PATH
+export PATH=/opt/homebrew/bin:$HOME/bin:$PATH
 
 fpath+=("$(brew --prefix)/share/zsh/site-functions")
 autoload -U promptinit; promptinit
