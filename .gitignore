@@ -1,3 +1,5 @@
 .config/nvim/lazyvim.json 
 .config/nvim/lazy-lock.json
 .config/karabiner/automatic_backups/
+.config/herdr
+.config/hunk
