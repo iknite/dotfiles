@@ -43,5 +43,5 @@
 [push]
 	default = simple
 [core]
-	excludesfile = /home/iknite/.gitignore
+	excludesFile = /Users/iknite/.config/git/ignore
 
